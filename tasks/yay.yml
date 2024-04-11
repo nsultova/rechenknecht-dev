@@ -13,7 +13,7 @@
 - name: Find the .pkg.tar file
   ansible.builtin.find:
     paths: /home/npc/yay
-    patterns: "*.tar.gz"
+    patterns: "*.pkg.tar.zst"
     file_type: "file"
   register: pkg_file
 
