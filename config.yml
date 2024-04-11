@@ -1,0 +1,85 @@
+---
+update: true
+
+base_packages:
+  - base
+  - base-devel
+  - linux
+  - linux-firmware
+  - sudo
+  - dhcpcd
+  - dnsmasq
+  - netctl
+  - networkmanager
+  - openssh
+  - whois
+  - pipewire
+  - man-db
+  - man-pages
+  - git
+  - go # for yay
+  - wget
+
+#gpu_packages:
+#  - mesa
+#  - lib32-mesa
+#  - xf86-video-amdgpu
+#  - vulkan-radeon
+#  - vulkan-headers
+#  - lib32-vulkan-radeon
+#  - amdvlk
+#  - lib32-amdvlk
+#  - libva-mesa-driver
+#  - lib32-libva-mesa-driver
+#  - mesa-vdpau
+#  - lib32-mesa-vdpau
+
+font_packages:
+  - noto-fonts
+  - noto-fonts-emoji # for emoji
+  - ttf-dejavu
+  - ttf-roboto
+  - ttf-hack-nerd
+
+other_packages:
+  - zsh
+  - oh-my-zsh-git
+  - linux-headers
+  - aria2
+  - vlc
+  - firefox
+  - google-chrome
+  - obsidian
+  - yt-dlp
+  - ntfs-3g
+  - gallery-dl
+  - neofetch
+  - btop
+  - browserpass-firefox
+  - browserpass-chromium
+  - tmux
+  - cpupower
+  - turbostat
+  - acpi
+  - bc
+  - update-grub
+  - p7zip
+  - magic-wormhole
+  - ripgrep-all
+  - translate-shell
+
+services_list:
+  - sshd
+  - NetworkManager
+  - reflector
+
+dev_packages:
+  - visual-studio-code-bin
+  - nvim
+  - vim
+  - nvim-lazy
+  - neovim-everforest-git
+  - neovim-nvim-treesitter
+  - nvim-lazy
+  - python
+  - python-poetry

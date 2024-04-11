@@ -1,0 +1,11 @@
+---
+- name: Clone yay repository
+  ansible.builtin.git:
+    repo: "https://aur.archlinux.org/yay.git"
+    dest: "/home/npc/yay"
+    update: yes
+
+- name: Install yay using makepkg
+  command:
+    cmd: makepkg -si
+    chdir: /home/npc/yay
