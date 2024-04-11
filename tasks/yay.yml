@@ -5,7 +5,24 @@
     dest: "/home/npc/yay"
     update: yes
 
-- name: Install yay using makepkg
+- name: Build yay using makepkg
   command:
-    cmd: makepkg -si
+    cmd: makepkg -p PKGBUILD #-si
+    chdir: /home/npc/yay
+
+- name: Find the .pkg.tar file
+  ansible.builtin.find:
+    paths: /home/npc/yay
+    patterns: "*.tar.gz"
+    file_type: "file"
+  register: pkg_file
+
+- name: Extract the file name
+  set_fact:
+    pkg_file_name: "{{ pkg_file.files[0].path | basename }}"
+
+- name: Install yay
+  become: true
+  command:
+    cmd: pacman -U /home/npc/yay/{{ pkg_file_name }}
     chdir: /home/npc/yay
