@@ -20,19 +20,7 @@ base_packages:
   - go # for yay
   - wget
 
-#gpu_packages:
-#  - mesa
-#  - lib32-mesa
-#  - xf86-video-amdgpu
-#  - vulkan-radeon
-#  - vulkan-headers
-#  - lib32-vulkan-radeon
-#  - amdvlk
-#  - lib32-amdvlk
-#  - libva-mesa-driver
-#  - lib32-libva-mesa-driver
-#  - mesa-vdpau
-#  - lib32-mesa-vdpau
+#TODO gpu_packages:
 
 font_packages:
   - noto-fonts
@@ -71,7 +59,6 @@ other_packages:
 services_list:
   - sshd
   - NetworkManager
-  #  - reflector
 
 dev_packages:
   - visual-studio-code-bin
