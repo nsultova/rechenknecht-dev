@@ -1,5 +1,12 @@
 ---
-- name: Update all packages
+- name: Update all packages from official repositories
+  become: true
+  community.general.pacman:
+    upgrade: yes
+    update_cache: yes
+  when: update | default(false) | bool
+
+- name: Update all packages from AUR
   become: true
   kewlfft.aur.aur:
     upgrade: true
