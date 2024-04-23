@@ -50,7 +50,6 @@ other_packages:
   - obsidian
   - yt-dlp
   - ntfs-3g
-  - gallery-dl
   - neofetch
   - btop
   - browserpass-firefox
@@ -65,15 +64,14 @@ other_packages:
   - magic-wormhole
   - ripgrep-all
   - translate-shell
-
-other_packages_manual_build:
   - oh-my-zsh-git
   - google-chrome
+  - gallery-dl
 
 services_list:
   - sshd
   - NetworkManager
-  - reflector
+  #  - reflector
 
 dev_packages:
   - visual-studio-code-bin
