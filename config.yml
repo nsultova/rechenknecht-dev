@@ -43,12 +43,10 @@ font_packages:
 
 other_packages:
   - zsh
-  - oh-my-zsh-git
   - linux-headers
   - aria2
   - vlc
   - firefox
-  - google-chrome
   - obsidian
   - yt-dlp
   - ntfs-3g
@@ -67,6 +65,10 @@ other_packages:
   - magic-wormhole
   - ripgrep-all
   - translate-shell
+
+other_packages_manual_build:
+  - oh-my-zsh-git
+  - google-chrome
 
 services_list:
   - sshd

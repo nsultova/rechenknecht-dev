@@ -1,28 +1,39 @@
 ---
-- name: Clone yay repository
-  ansible.builtin.git:
-    repo: "https://aur.archlinux.org/yay.git"
-    dest: "/home/npc/yay"
-    update: yes
+- name: Check if yay directory exists
+  stat:
+    path: path=/home/npc/yay
+  register: dir
 
-- name: Build yay using makepkg
-  command:
-    cmd: makepkg -p PKGBUILD #-si
-    chdir: /home/npc/yay
+- name: Debug pkg_file_exists variable
+  debug:
+    var: dir
 
-- name: Find the .pkg.tar file
-  ansible.builtin.find:
-    paths: /home/npc/yay
-    patterns: "*.pkg.tar.zst"
-    file_type: "file"
-  register: pkg_file
+- block:
+    - name: Clone yay repository
+      git:
+        repo: "https://aur.archlinux.org/yay.git"
+        dest: "/home/npc/yay"
+        update: yes
 
-- name: Extract the file name
-  set_fact:
-    pkg_file_name: "{{ pkg_file.files[0].path | basename }}"
+    - name: Build yay using makepkg
+      command:
+        cmd: makepkg -p PKGBUILD #-si
+        chdir: /home/npc/yay
 
-- name: Install yay
-  become: true
-  command:
-    cmd: pacman -U --noconfirm /home/npc/yay/{{ pkg_file_name }}
-    chdir: /home/npc/yay
+    - name: Find the .pkg.tar file
+      find:
+        paths: /home/npc/yay
+        patterns: "*.pkg.tar.zst"
+        file_type: "file"
+      register: pkg_file
+
+    - name: Extract the file name
+      set_fact:
+        pkg_file_name: "{{ pkg_file.files[0].path | basename }}"
+
+    - name: Install yay
+      become: true
+      command:
+        cmd: pacman -U --noconfirm /home/npc/yay/{{ pkg_file_name }}
+        chdir: /home/npc/yay
+  when: dir.stat.isdir is defined and dir.stat.isdir

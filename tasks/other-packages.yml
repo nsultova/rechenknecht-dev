@@ -5,3 +5,37 @@
     name: "{{ other_packages }}"
     use: yay
     state: present
+
+- name: Clone git repository
+  ansible.builtin.git:
+    repo: "https://aur.archlinux.org/oh-my-zsh-git.git"
+    dest: "/home/npc/oh-my-zsh-git"
+    update: yes
+
+- name: Build using makepkg
+  command:
+    cmd: makepkg -p PKGBUILD #-si
+    chdir: /home/npc/oh-my-zsh-git
+
+- name: Find the .pkg.tar file
+  ansible.builtin.find:
+    paths: /home/npc/oh-my-zsh-git
+    patterns: "*.pkg.tar.zst"
+    file_type: "file"
+  register: pkg_file
+
+- name: Extract the file name
+  set_fact:
+    pkg_file_name: "{{ pkg_file.files[0].path | basename }}"
+
+- name: Install oh-my-zsh-git
+  become: true
+  command:
+    cmd: pacman -U --noconfirm /home/npc/oh-my-zsh-git/{{ pkg_file_name }}
+    chdir: /home/npc/oh-my-zsh-git
+# TODO  automate or make more modular smh
+#- name: Manual build of additional packages
+#  kewlfft.aur.aur:
+#    name: "{{ other_packages }}"
+#    use: yay
+#    state: present
