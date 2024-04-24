@@ -1,2 +1,5 @@
 [vm]
 rechenknecht-dev ansible-ssh-private-key-file=/home/nea/.ssh/id_rechenknecht
+
+[machine]
+rechenknecht ansible-ssh-private-key-file=/home/nea/.ssh/id_rechenknecht
