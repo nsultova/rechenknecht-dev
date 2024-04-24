@@ -9,13 +9,13 @@
   debug:
     var: dir
 
-- block:
-    - name: Clone yay repository
-      git:
-        repo: "https://aur.archlinux.org/yay.git"
-        dest: "/home/npc/yay"
-        update: yes
+- name: Clone yay repository
+  git:
+    repo: "https://aur.archlinux.org/yay.git"
+    dest: "/home/npc/yay"
+    update: yes
 
+- block:
     - name: Build yay using makepkg
       command:
         cmd: makepkg -p PKGBUILD #-si
