@@ -1,6 +1,6 @@
 ---
 - name: Configure host.
-  hosts: machine #vm here instead?
+  hosts: vm #vm here instead?
 
   vars_files:
     #  - default.config.yml

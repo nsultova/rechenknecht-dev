@@ -2,28 +2,32 @@
 #TODO I am sure there's a less ugly way..
 - name: Check if yay directory exists
   stat:
-    path: path=/home/npc/yay
+    path: path=/home/{{ansible_facts['user_id']}}/yay
   register: dir
 
 - name: Debug pkg_file_exists variable
   debug:
     var: dir
 
+- name: Show facts available on the system
+  ansible.builtin.debug:
+    var: ansible_facts
+
 - name: Clone yay repository
   git:
     repo: "https://aur.archlinux.org/yay.git"
-    dest: "/home/npc/yay"
+    dest: /home/{{ansible_facts['user_id']}}/yay
     update: yes
 
 - block:
     - name: Build yay using makepkg
       command:
         cmd: makepkg -p PKGBUILD #-si
-        chdir: /home/npc/yay
+        chdir: /home/{{user}}/yay
 
     - name: Find the .pkg.tar file
       find:
-        paths: /home/npc/yay
+        paths: /home/{{ansible_facts['user_id']}}/yay
         patterns: "*.pkg.tar.zst"
         file_type: "file"
       register: pkg_file
@@ -35,8 +39,8 @@
     - name: Install yay
       become: true
       command:
-        cmd: pacman -U --noconfirm /home/npc/yay/{{ pkg_file_name }}
-        chdir: /home/npc/yay
+        cmd: pacman -U --noconfirm /home/{{user}}/yay/{{ pkg_file_name }}
+        chdir: /home/{{ansible_facts['user_id']}}/yay
   when: dir.stat.isdir is defined and dir.stat.isdir
 
 #TODO Check if aur_builder user exists
