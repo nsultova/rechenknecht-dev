@@ -1,0 +1,18 @@
+---
+- name: Update all packages from official repositories
+  listen: Update official packages
+  become: true
+  community.general.pacman:
+    upgrade: yes
+    update_cache: yes
+  when: update | default(false) | bool
+
+- name: Update all packages from AUR
+  listen: Update AUR packages
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    upgrade: true
+    use: yay
+    state: present
+  changed_when: false
+  when: update | default(false) | bool
