@@ -1,9 +1,0 @@
----
-- name: Install other packages
-  become: true
-  become_user: aur_builder
-  kewlfft.aur.aur:
-    name: "{{ other_packages }}"
-    use: yay
-    update_cache: true
-    state: present
