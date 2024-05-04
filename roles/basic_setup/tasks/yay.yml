@@ -2,7 +2,7 @@
 #TODO I am sure there's a less ugly way..
 - name: Check if yay directory exists
   stat:
-    path: path=/home/{{ansible_facts['user_id']}}/yay
+    path: /home/{{ansible_facts['user_id']}}/yay
   register: dir
 
 - name: Debug pkg_file_exists variable
@@ -23,7 +23,7 @@
     - name: Build yay using makepkg
       command:
         cmd: makepkg -p PKGBUILD #-si
-        chdir: /home/{{user}}/yay
+        chdir: /home//{{ansible_facts['user_id']}}/yay
 
     - name: Find the .pkg.tar file
       find:
@@ -39,7 +39,7 @@
     - name: Install yay
       become: true
       command:
-        cmd: pacman -U --noconfirm /home/{{user}}/yay/{{ pkg_file_name }}
+        cmd: pacman -U --noconfirm /home/{{ansible_facts['user_id']}}/yay/{{ pkg_file_name }}
         chdir: /home/{{ansible_facts['user_id']}}/yay
   when: dir.stat.isdir is defined and dir.stat.isdir
 
