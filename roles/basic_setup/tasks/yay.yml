@@ -19,18 +19,19 @@
     dest: /home/{{ansible_facts['user_id']}}/yay
     update: yes
 
+- name: Find the .pkg.tar file
+  find:
+    paths: /home/{{ansible_facts['user_id']}}/yay
+    patterns: "*.pkg.tar.zst"
+    file_type: "file"
+  register: pkg_file
+  when: dir.stat.isdir is defined and dir.stat.isdir
+
 - block:
     - name: Build yay using makepkg
       command:
         cmd: makepkg -p PKGBUILD #-si
         chdir: /home//{{ansible_facts['user_id']}}/yay
-
-    - name: Find the .pkg.tar file
-      find:
-        paths: /home/{{ansible_facts['user_id']}}/yay
-        patterns: "*.pkg.tar.zst"
-        file_type: "file"
-      register: pkg_file
 
     - name: Extract the file name
       set_fact:
@@ -41,7 +42,7 @@
       command:
         cmd: pacman -U --noconfirm /home//{{ansible_facts['user_id']}}/yay/{{ pkg_file_name }}
         chdir: /home/{{ansible_facts['user_id']}}/yay
-  when: dir.stat.isdir is defined and dir.stat.isdir
+  when: dir.stat.isdir is defined and dir.stat.isdir and pkg_file.matched == 0
 
 #TODO Check if aur_builder user exists
 
