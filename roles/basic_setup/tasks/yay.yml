@@ -39,7 +39,7 @@
     - name: Install yay
       become: true
       command:
-        cmd: pacman -U --noconfirm /home/{{ansible_facts['user_id']}}/yay/{{ pkg_file_name }}
+        cmd: pacman -U --noconfirm /home//{{ansible_facts['user_id']}}/yay/{{ pkg_file_name }}
         chdir: /home/{{ansible_facts['user_id']}}/yay
   when: dir.stat.isdir is defined and dir.stat.isdir
 
