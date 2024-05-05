@@ -1,7 +1,0 @@
-- name: Copy .zshrc file
-  copy:
-    src: zshrc
-    dest: ~/.zshrc
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: 0644
