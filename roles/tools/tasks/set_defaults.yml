@@ -1,6 +1,23 @@
 ---
-- name: Change default shell to zsh
+- name: Change user's default shell
   become: true
-  ansible.builtin.user:
-    name: "{{ ansible_facts['user_id'] }}"
-    shell: /usr/bin/zsh
+  ansible.builtin.command:
+    cmd: "chsh -s /usr/bin/zsh {{ ansible_facts['user_id'] }}"
+
+- name: Logout and login to apply new shell
+  block:
+    - name: Logout
+      meta: reset_connection
+
+    - name: Wait for user to log back in
+      pause:
+        prompt: "Please log back in to apply the new shell. Press Enter when ready."
+
+    - name: Verify new shell
+      ansible.builtin.command:
+        cmd: echo $SHELL
+      register: shell_output
+
+    - name: Print new shell
+      debug:
+        msg: "New shell: {{ shell_output.stdout }}"
