@@ -1,0 +1,7 @@
+- name: Copy .nvim configurations
+  copy:
+    src: nvim/
+    dest: ~/.config/nvim/
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_id'] }}"
+    mode: 0644
