@@ -1,9 +1,28 @@
 ---
-- name: Change user's default shell
+- name: Change user's default shell to zsh
   become: true
   ansible.builtin.command:
     cmd: "chsh -s /usr/bin/zsh {{ ansible_facts['user_id'] }}"
 
+- name: Create script to take inhibition lock on SSH connection
+  become: true
+  copy:
+    src: sshrc
+    dest: /etc/ssh/sshrc
+    mode: 0755
+
+- name: Configure SSH server to execute script on new connections
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^SessionRCCommand"
+    line: "SessionRCCommand /etc/ssh/sshrc"
+
+#- name: Restart SSH server
+#  systemd:
+#    name: sshd
+#    state: restarted # check still throws connection timed out after execution
+#
 - name: Logout and login to apply new configurations
   block:
     - name: Logout
