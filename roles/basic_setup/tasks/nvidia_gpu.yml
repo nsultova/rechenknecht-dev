@@ -1,2 +1,7 @@
 ---
-# TODO
+- name: Install gpu packages
+  become: true
+  community.general.pacman:
+    name: "{{ base_packages }}"
+    state: present
+  changed_when: false

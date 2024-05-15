@@ -23,6 +23,7 @@
 #    name: sshd
 #    state: restarted # check still throws connection timed out after execution
 #
+
 - name: Logout and login to apply new configurations
   block:
     - name: Logout

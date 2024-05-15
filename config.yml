@@ -72,3 +72,6 @@ dev_packages:
   - python
   - python-poetry
   - npm
+
+gpu_packages:
+  - nvidia

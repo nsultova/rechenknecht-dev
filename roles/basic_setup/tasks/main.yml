@@ -2,7 +2,7 @@
 - import_tasks: tasks/update.yml
 - import_tasks: tasks/base-packages.yml
 - import_tasks: tasks/yay.yml
-#- import_tasks: tasks/nvidia_gpu.yml
+- import_tasks: tasks/nvidia_gpu.yml
 - import_tasks: tasks/fonts.yml
 - import_tasks: tasks/other-packages.yml
 - import_tasks: tasks/other-services.yml
