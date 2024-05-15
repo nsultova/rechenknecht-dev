@@ -47,6 +47,7 @@ other_packages:
   - turbostat
   - acpi
   - bc
+  - unzip
   - update-grub
   - p7zip
   - magic-wormhole
@@ -70,3 +71,4 @@ dev_packages:
   - nvim-lazy
   - python
   - python-poetry
+  - npm

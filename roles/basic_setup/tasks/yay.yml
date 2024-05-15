@@ -36,6 +36,11 @@
     - name: Extract the file name
       set_fact:
         pkg_file_name: "{{ pkg_file.files[0].path | basename }}"
+      register: pkg_file_name_var
+
+    - name: Debug pkg_file_name_var
+      debug:
+        var: pkg_file_name_var
 
     - name: Install yay
       become: true
