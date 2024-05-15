@@ -6,8 +6,9 @@
     - config.yml
 
   roles:
-    - name: roles/basic_setup
-    - name: roles/tools
+    #    - name: roles/basic_setup
+    #    - name: roles/tools
+    - name: roles/gpu
 
   #post_tasks:
   #  - notify: Update official packages
