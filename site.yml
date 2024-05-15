@@ -1,6 +1,6 @@
 ---
 - name: Basic setup of fresh arch installation
-  hosts: vm
+  hosts: machine
 
   vars_files:
     - config.yml
