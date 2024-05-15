@@ -22,7 +22,12 @@
 #  systemd:
 #    name: sshd
 #    state: restarted # check still throws connection timed out after execution
-#
+- name: Copy nvidia-drm configuration
+  become: true
+  copy:
+    src: nvidia-drm.conf
+    dest: /etc/modprobe.d/nvidia-drm.conf
+    mode: 0644
 
 - name: Logout and login to apply new configurations
   block:
