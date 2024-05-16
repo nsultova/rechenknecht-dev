@@ -1,0 +1,28 @@
+---
+#- name: Reboot server   # how to handle cryoted setup in this case
+#  become: true
+#  reboot:
+#    msg: "Rebooting the system to apply the nvidia-drm configuration"
+#    reboot_timeout: 300
+##- name: Restart SSH server
+#  systemd:
+#    name: sshd
+#    state: restarted # check still throws connection timed out after execution
+#
+#- name: Logout and login to apply new configurations
+#  block:
+#    - name: Logout
+#      meta: reset_connection
+#
+#    #    - name: Wait for user to log back in
+#    #      pause:
+#    #        prompt: "Please log back in to apply the new shell. Press Enter when ready."
+#    #
+#    - name: Verify new shell
+#      ansible.builtin.command:
+#        cmd: echo $SHELL
+#      register: shell_output
+#
+#    - name: Print new shell
+#      debug:
+#        msg: "New shell: {{ shell_output.stdout }}"
