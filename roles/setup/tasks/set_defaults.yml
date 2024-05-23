@@ -28,6 +28,8 @@
       Match User {{ ansible_facts['user_id'] }}
           ForceCommand systemd-inhibit --who="SSH session" --why="Active user" --what=idle --mode=block zsh
 
+# handler to reload?
+
 - name: Copy nvidia-drm configuration
   become: true
   copy:
@@ -35,12 +37,3 @@
     dest: /etc/modprobe.d/nvidia-drm.conf
     mode: 0644
   #notify: Reboot server
-
-
-- name: Check if ssh.socket is active
-  command: systemctl is-active ssh.socket
-  register: ssh_socket_status
-  changed_when: false
-  failed_when: >
-    ssh_socket_status.rc != 0 and
-    'inactive' not in ssh_socket_status.stdout
