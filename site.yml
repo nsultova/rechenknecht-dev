@@ -1,6 +1,6 @@
 ---
 - name: Basic setup of fresh arch installation
-  hosts: machine
+  hosts: vm
 
   vars_files:
     - config.yml
@@ -9,6 +9,6 @@
     - name: roles/basic_setup
     - name: roles/tools
 
-  #post_tasks:
+  # post_tasks:
   #  - notify: Update official packages
-  #- notify: Update AUR packages
+  # - notify: Update AUR packages
