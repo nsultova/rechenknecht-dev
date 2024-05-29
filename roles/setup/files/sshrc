@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Only run for interactive SSH sessions
-if [ -n "$SSH_TTY" ]; then
-    # Take an inhibition lock to prevent sleep/suspend
-    # systemd-inhibit --what=sleep --mode=block --why="SSH session active" sleep infinity &
-    # delay inhibition lock prevent system from suspending due to idleness - might suffice
-    systemd-inhibit --what=idle --why="SSH session active" sleep infinity &
-fi

@@ -1,7 +1,6 @@
 ---
 - name: Basic setup of fresh arch installation
   hosts: vm
-
   vars_files:
     - config.yml
 
@@ -9,6 +8,19 @@
     - name: roles/install
     - name: roles/setup
 
-  # post_tasks:
-  #  - notify: Update official packages
-  # - notify: Update AUR packages
+  post_tasks:
+    - name: Update all packages from official repositories
+      become: true
+      community.general.pacman:
+        upgrade: true
+        update_cache: true
+      changed_when: false
+
+    - name: Update all packages from AUR
+      become_user: aur_builder
+      kewlfft.aur.aur:
+        upgrade: true
+        use: yay
+        state: present
+      changed_when: false
+
