@@ -71,6 +71,7 @@ dev_packages:
   - nvim-lazy
   - python
   - python-poetry
+  - mambaforge
   - npm
 
 gpu_packages:

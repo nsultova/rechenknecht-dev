@@ -5,3 +5,7 @@
     name: "{{ base_packages }}"
     state: present
   changed_when: false
+
+
+- name: Flush handlers update+upgrade before continuing
+  meta: flush_handler

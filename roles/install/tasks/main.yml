@@ -1,10 +1,9 @@
 ---
-- import_tasks: tasks/update.yml
-- import_tasks: tasks/base-packages.yml
+- import_tasks: tasks/base_packages.yml
 - import_tasks: tasks/yay.yml
 - import_tasks: tasks/nvidia_gpu.yml
 - import_tasks: tasks/fonts.yml
-- import_tasks: tasks/other-packages.yml
-- import_tasks: tasks/other-services.yml
-- import_tasks: tasks/dev-packages.yml
-#- import_tasks: tasks/upgrade.yml
+- import_tasks: tasks/other_packages.yml
+- import_tasks: tasks/other_services.yml
+- import_tasks: tasks/dev_packages.yml
+#- import_tasks: tasks/wrap_up.yml

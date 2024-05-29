@@ -1,0 +1,6 @@
+---
+- name: Reboot server   # how to handle cryoted setup in this case
+  become: true
+  reboot:
+    msg: "Rebooting the system to apply the nvidia-drm configuration"
+    reboot_timeout: 300
