@@ -57,6 +57,7 @@ other_packages:
   - oh-my-zsh-git
   - google-chrome
   - gallery-dl
+  - waypipe
 
 services_list:
   - sshd
