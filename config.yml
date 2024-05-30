@@ -9,6 +9,7 @@ base_packages:
   - sudo
   - dhcpcd
   - dnsmasq
+  - dnsutils
   - netctl
   - networkmanager
   - openssh
