@@ -1,3 +1,4 @@
+# contains custom options for mamba, nvim, aliases
 - name: Copy .zshrc file
   ansible.builtin.copy:
     src: zshrc

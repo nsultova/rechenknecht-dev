@@ -1,0 +1,9 @@
+# Contains option for setting default editor to vim globally
+- name: Copy environment file
+  become: true
+  ansible.builtin.copy:
+    src: environment
+    dest: /etc/environment
+    owner: root
+    group: root
+    mode: "0644"
