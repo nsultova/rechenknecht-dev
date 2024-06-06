@@ -1,7 +1,7 @@
 ---
 update: true
 
-base_packages:
+base_packages: #via pacman
   - base
   - base-devel
   - linux
@@ -20,17 +20,18 @@ base_packages:
   - git
   - go # for yay
   - wget
+  - feh
 
 #TODO gpu_packages:
 
-font_packages:
+font_packages: 
   - noto-fonts
   - noto-fonts-emoji # for emoji
   - ttf-dejavu
   - ttf-roboto
   - ttf-hack-nerd
 
-other_packages:
+other_packages: # via yay
   - zsh
   - linux-headers
   - aria2
