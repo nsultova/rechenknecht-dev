@@ -1,6 +1,5 @@
 ---
 - name: Update all packages from official repositories
-  listen: Update official packages
   become: true
   community.general.pacman:
     upgrade: true
@@ -10,7 +9,6 @@
 
 - name: Update all packages from AUR
   #become: true
-  listen: Update AUR packages
   become_user: aur_builder
   kewlfft.aur.aur:
     upgrade: true

@@ -4,24 +4,25 @@
     - config.yml
 
   roles:
-    #- name: roles/install
-    #- name: roles/setup
-    # - name: roles/system-update
-    # - name: roles/dummy-env
+    - name: roles/install
+    - name: roles/setup
+    - name: roles/updates
+    - name: roles/dummy-env
 
-  post_tasks:
-    - name: Update all packages from official repositories
-      become: true
-      community.general.pacman:
-        upgrade: true
-        update_cache: true
-      changed_when: false
+  # works like a charm, add back in when in prod, use manual role until then
+ # post_tasks:
+ #   - name: Update all packages from official repositories
+ #     become: true
+ #     community.general.pacman:
+ #       upgrade: true
+ #       update_cache: true
+ #     changed_when: false
 
-    - name: Update all packages from AUR
-      become: true
-      become_user: aur_builder
-      kewlfft.aur.aur:
-        upgrade: true
-        use: yay
-        state: present
-      changed_when: false
+ #   - name: Update all packages from AUR
+ #     become: true
+ #     become_user: aur_builder
+ #     kewlfft.aur.aur:
+ #       upgrade: true
+ #       use: yay
+ #       state: present
+ #     changed_when: false
