@@ -1,3 +1,5 @@
 mamba_programs: 
   - bat
   - cowpy
+
+mamba_env_name: dummy-env

@@ -1,5 +1,0 @@
-mamba_programs:
-  - pip
-  - netcat
-
-mamba_env_name: dummy-env
