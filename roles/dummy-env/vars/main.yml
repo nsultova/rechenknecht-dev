@@ -1,5 +1,10 @@
-mamba_programs: 
-  - bat
-  - cowpy
-
 mamba_env_name: dummy-env
+
+mamba_programs: 
+  - pip
+  - python=3.11
+  #- ipython
+
+pip_programs:
+ #- open-webui
+ - bat
