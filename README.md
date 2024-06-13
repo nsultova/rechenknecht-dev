@@ -7,6 +7,7 @@ https://unix.stackexchange.com/questions/408413/change-default-editor-to-vim-for
 * make roles for
  * open webui install with mamba
  * ollama install with mamba
+ * ntp
 
 * refactor
 * ..find someone for code-review

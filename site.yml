@@ -4,8 +4,10 @@
     - config.yml
 
   roles:
-    - name: roles/install
-    - name: roles/setup
+    #- name: roles/install
+    #- name: roles/setup
+    # - name: roles/system-update
+    # - name: roles/dummy-env
 
   post_tasks:
     - name: Update all packages from official repositories

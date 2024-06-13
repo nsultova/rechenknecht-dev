@@ -1,0 +1,2 @@
+#mamba_env_path: "/opt/mamba_envs"
+mamba_programs: "{{ mamba_programs | default([]) }}"

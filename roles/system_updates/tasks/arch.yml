@@ -1,0 +1,20 @@
+---
+- name: Update all packages from official repositories
+  listen: Update official packages
+  become: true
+  community.general.pacman:
+    upgrade: true
+    update_cache: true
+  changed_when: false
+  tags: system_update
+
+- name: Update all packages from AUR
+  #become: true
+  listen: Update AUR packages
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    upgrade: true
+    use: yay
+    state: present
+  changed_when: false
+  tags: system_update

@@ -1,8 +1,8 @@
 ---
-- import_tasks: tasks/base_packages.yml
-- import_tasks: tasks/yay.yml
-- import_tasks: tasks/nvidia_gpu.yml
-- import_tasks: tasks/fonts.yml
-- import_tasks: tasks/other_packages.yml
-- import_tasks: tasks/other_services.yml
-- import_tasks: tasks/dev_packages.yml
+- ansible.builtin.import_tasks: tasks/base_packages.yml
+- ansible.builtin.import_tasks: tasks/yay.yml
+- ansible.builtin.import_tasks: tasks/nvidia_gpu.yml
+- ansible.builtin.import_tasks: tasks/fonts.yml
+- ansible.builtin.import_tasks: tasks/other_packages.yml
+- ansible.builtin.import_tasks: tasks/other_services.yml
+- ansible.builtin.import_tasks: tasks/dev_packages.yml

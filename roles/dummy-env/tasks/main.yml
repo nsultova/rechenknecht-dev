@@ -1,0 +1,12 @@
+---
+- name: Create Mamba environment
+  ansible.builtin.command:
+    cmd: "mamba create --name {{ mamba_env_name }}"
+  register: mamba_create_result
+  changed_when: mamba_create_result.rc != 0
+
+- name: Install programs into Mamba environment
+  ansible.builtin.command:
+    cmd: "mamba install -y --name {{ mamba_env_name }} {{ item }}"
+  loop: "{{ mamba_programs }}"
+  when: mamba_create_result.rc == 0
