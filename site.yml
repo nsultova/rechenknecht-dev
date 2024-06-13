@@ -5,8 +5,8 @@
     - config.yml
 
   roles:
-    - name: roles/install
-    - name: roles/setup
+   # - name: roles/install
+   # - name: roles/setup
     - name: roles/updates
     - name: roles/dummy-env
 
