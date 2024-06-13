@@ -1,4 +1,4 @@
-- name: Basic setup of fresh arch installation
+- name: Setup a machine learning workstation on Arch <3
   #hosts: machine
   hosts: "{{ host }}" ## add via -e "host=sth" instead for testing 
   vars_files:
@@ -6,9 +6,12 @@
 
   roles:
    # - name: roles/install
-    - name: roles/setup
+   # - name: roles/setup
    # - name: roles/updates
    # - name: roles/dummy-env
+   # - name: roles/open-webui
+   #   when: inventory_hostname in groups['machines']
+
 
   # works like a charm, add back in when in prod, use manual role until then
  # post_tasks:

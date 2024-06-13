@@ -1,0 +1,8 @@
+mamba_env_name: open-webui-env
+
+mamba_programs: 
+  - pip
+  - python=3.11
+
+pip_programs:
+ - open-webui

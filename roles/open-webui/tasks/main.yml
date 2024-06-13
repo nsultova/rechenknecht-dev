@@ -1,0 +1,35 @@
+- name: Check if mamba environment exists
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    mamba env list | grep -q "{{ mamba_env_name }}"
+  register: env_exists
+  failed_when: env_exists.rc > 1
+  args:
+    executable: /bin/zsh
+
+- name: Create mamba environment
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    mamba create --name {{ mamba_env_name }}
+  args:
+    executable: /bin/zsh
+  when: env_exists.rc != 0
+  
+# use mamba to install pip&co  
+- name: Populate mamba environment with mamba
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    mamba install -y --name {{ mamba_env_name }} {{ item }}
+  loop: "{{ mamba_programs | default([]) }}" 
+  args:
+    executable: /bin/zsh
+
+# install everything else via pip from _within, bc ML things+ cuda
+- name: Populate mamba environment with pip packages
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    conda activate {{ mamba_env_name }}
+    pip install {{ item }}
+  loop: "{{ pip_programs | default([]) }}"
+  args:
+    executable: /bin/zsh
