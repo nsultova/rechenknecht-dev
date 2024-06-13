@@ -1,12 +1,25 @@
----
-- name: Create Mamba environment
-  ansible.builtin.command:
-    cmd: "mamba create --name {{ mamba_env_name }}"
-  register: mamba_create_result
-  changed_when: mamba_create_result.rc != 0
+- name: Check if mamba environment exists
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    mamba env list | grep -q "{{ mamba_env_name }}"
+  register: env_exists
+  failed_when: env_exists.rc > 1
+  args:
+    executable: /bin/zsh
 
-- name: Install programs into Mamba environment
-  ansible.builtin.command:
-    cmd: "mamba install -y --name {{ mamba_env_name }} {{ item }}"
-  loop: "{{ mamba_programs }}"
-  when: mamba_create_result.rc == 0
+- name: Create mamba environment
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    mamba create --name {{ mamba_env_name }}
+  args:
+    executable: /bin/zsh
+  when: env_exists.rc != 0
+  
+
+- name: Populate mamba environment
+  ansible.builtin.shell: |
+    source ~/.zshrc
+    mamba install -y --name {{ mamba_env_name }} {{ item }}
+  loop: "{{ mamba_programs | default([]) }}" 
+  args:
+    executable: /bin/zsh

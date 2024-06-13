@@ -7,7 +7,7 @@
   roles:
    # - name: roles/install
    # - name: roles/setup
-    - name: roles/updates
+   # - name: roles/updates
     - name: roles/dummy-env
 
   # works like a charm, add back in when in prod, use manual role until then
