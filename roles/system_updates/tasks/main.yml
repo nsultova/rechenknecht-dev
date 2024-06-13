@@ -1,1 +1,5 @@
+# Handle updates separately, outside post-task
+# Idea here is to include further update-procedures from the different custom
+# components - as this structure might turn out trash when actually implemented its pro forma for now
+
 - ansible.builtin.import_tasks: tasks/arch.yml
