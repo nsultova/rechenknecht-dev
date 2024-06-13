@@ -1,7 +1,9 @@
 ---
+# TODO only exec when machine
 - name: Install gpu packages
   become: true
   community.general.pacman:
-    name: "{{ base_packages }}"
+    name: "{{ gpu_packages }}"
     state: present
+  when: inventory_hostname in groups['machines']
   changed_when: false

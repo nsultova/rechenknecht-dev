@@ -4,5 +4,4 @@
 - import_tasks: tasks/mamba.yml
 - import_tasks: tasks/sshd.yml
 - import_tasks: tasks/environment.yml
-
-#- import_tasks: tasks/set_defaults.yml
+- import_tasks: tasks/set_defaults.yml

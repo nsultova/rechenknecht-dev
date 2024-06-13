@@ -10,5 +10,7 @@
   copy:
     src: nvidia-drm.conf
     dest: /etc/modprobe.d/nvidia-drm.conf
-    mode: 0644
+    mode: "0644"
+  when: inventory_hostname in groups['machines']
+  
   #notify: Reboot server
