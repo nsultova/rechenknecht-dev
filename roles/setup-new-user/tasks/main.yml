@@ -18,6 +18,11 @@
     create_home: yes
     state: present     # will checks here make sense?
 
+- name: Add authorized key for user
+  become: true
+  authorized_key:
+    user: "{{ username }}"
+    key: "{{ lookup('file', 'files/id_rechenknecht.pub') }}"
 #- name: Remove user 
 #  become: yes
 #  ansible.builtin.user:
@@ -25,8 +30,8 @@
 #    state: absent
 #    remove: yes
 ##
-#- name: Setup user environment
-#  include_role:
-#    name: setup
-#  vars:
-#    ansible_user: {{ user_name }}
+- name: Setup user environment
+  include_role:
+    name: setup
+  vars:
+    ansible_user: "{{ username }}"

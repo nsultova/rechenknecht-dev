@@ -2,6 +2,6 @@
 - import_tasks: tasks/zsh.yml
 - import_tasks: tasks/nvim.yml
 - import_tasks: tasks/mamba.yml
-- import_tasks: tasks/sshd.yml
+#- import_tasks: tasks/sshd.yml
 - import_tasks: tasks/environment.yml
 - import_tasks: tasks/set_defaults.yml
