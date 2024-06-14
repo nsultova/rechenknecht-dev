@@ -6,7 +6,7 @@
 
   roles:
    # - name: roles/install
-   # - name: roles/setup
+    - role: setup
    # - name: roles/updates
    # - name: roles/dummy-env
    # - name: roles/open-webui

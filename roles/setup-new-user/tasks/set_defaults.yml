@@ -1,0 +1,13 @@
+---
+- name: Change user's default shell to zsh
+  become: true
+  ansible.builtin.command:
+    cmd: "chsh -s /usr/bin/zsh {{ username }}"
+  # changed_when: false
+
+- name: Add new user to appending the group 'graphical-forward'
+  become: true 
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: graphical-forward
+    append: yes

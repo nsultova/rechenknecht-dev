@@ -1,3 +1,10 @@
+# control which new users can connect graphically
+- name: Add graphical-forward group
+  become: true
+  group:
+    name: graphical-forward
+    state: present
+
 # Contains options for xforwarding
 - name: Copy sshd
   become: true

@@ -1,0 +1,9 @@
+- name: Copy .condarc - we use mamba but its conda under the hood
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.copy:
+    src: condarc
+    dest: ~/.condarc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"

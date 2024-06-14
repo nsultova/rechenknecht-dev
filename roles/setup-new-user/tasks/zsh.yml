@@ -1,0 +1,10 @@
+# contains custom options for mamba, nvim, aliases
+- name: Copy .zshrc file
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.copy:
+    src: zshrc
+    dest: ~/.zshrc
+    owner: "{{ username }}" # probably need to change to var where I assign this as default
+    group: "{{ username }}"
+    mode: "0644"
