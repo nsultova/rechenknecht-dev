@@ -21,6 +21,7 @@ base_packages: #via pacman
   - go # for yay
   - wget
   - feh
+  - fzf
 
 #TODO gpu_packages:
 
@@ -42,6 +43,7 @@ other_packages: # via yay
   - ntfs-3g
   - neofetch
   - btop
+  - bat
   - browserpass-firefox
   - browserpass-chromium
   - tmux
