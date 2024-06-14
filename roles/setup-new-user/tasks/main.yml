@@ -1,13 +1,28 @@
-- name: Create a user without sudo access
+---
+- name: Check if user exists
+  getent:
+    database: passwd
+    key: "{{ username }}"
+    fail_key: False
+  register: user_check
+
+- name: Create user without sudo
   become: true
   ansible.builtin.user:
-    name: {{ user_name }}
-    groups: users
+    name: "{{ username }}"
     shell: /bin/zsh
-  create_home: true
+    create_home: yes
+  when: not user_check.keys()
 
-- name: Setup user environment
-  include_role:
-    name: setup
-  vars:
-    ansible_user: {{ user_name }}
+- name: Remove user 
+  become: yes
+  ansible.builtin.user:
+    name: "{{ username }}"
+    state: absent
+    remove: yes
+
+#- name: Setup user environment
+#  include_role:
+#    name: setup
+#  vars:
+#    ansible_user: {{ user_name }}
