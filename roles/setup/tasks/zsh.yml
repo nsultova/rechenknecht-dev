@@ -3,6 +3,6 @@
   ansible.builtin.copy:
     src: zshrc
     dest: ~/.zshrc
-    owner: "{{ ansible_facts['user_id'] }}"
+    owner: "{{ ansible_facts['user_id'] }}" # probably need to change to var where I assign this as default
     group: "{{ ansible_facts['user_id'] }}"
     mode: "0644"
