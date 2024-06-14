@@ -11,7 +11,7 @@
    # - name: roles/dummy-env
    # - name: roles/open-webui
    #   when: inventory_hostname in groups['machines']
-
+    - role: setup-new-user
 
   # works like a charm, add back in when in prod, use manual role until then
  # post_tasks:
