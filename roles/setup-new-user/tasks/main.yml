@@ -14,8 +14,9 @@
   ansible.builtin.user:
     name: "{{ username }}"
     shell: /bin/bash
+    password: "{{ user_password }}"
     create_home: yes
-    state: present
+    state: present     # will checks here make sense?
 
 #- name: Remove user 
 #  become: yes
