@@ -29,6 +29,8 @@ Currently, there are two groups:
 Things are identical for both groups, except sections that recquire GPU||a lot of disk space, those get skipped when \[vms\] is specified.
 I tend to work around with dummy-roles instead in that case.
 
+Remote graphical access currenlty is realized via `waypipe`. See section `Examples` at the bottom
+
 The reason I decided to go for mamba, are:
 * obviously keeping things separated
 * enabling my friends to install what they need without needing sudo or spamming the system
@@ -36,6 +38,7 @@ The reason I decided to go for mamba, are:
 * currently in no mood struggling with the docker vs wireguard vs kvm circus I ran into when initially planning to do it via containers
 * also, afaik accessing the GPU via containers is non-trivial so maybe sth for the future, too much overkill for this setup 
 * might still do so in future tho
+
 
 
 ### Structure
@@ -102,3 +105,27 @@ Ask your friend for their pub key and add it to `files`. Refer to it from within
 * sections that are specifically dependend on GPU/big disk requirements are skipped
 * don't forget to configure your ssh-access and add your VM's credentials in `inventory`
 
+### Examples
+Access open-WebUI:
+* log in via ssh on the workstation 
+* (again here, there's a wireguard in between so you need to do your own configuration here)
+
+* launch a tmux session (bc you don't want your session to die together with your ssh connection)
+
+* activate the custom mamba environment (from within tmux session):
+`mamba env activate open-webui-env`
+
+* cd into the open-webui folder andstart the server using:
+`open-webui serve`
+
+* Server should be listening on localhost:8080
+
+
+* From your host, connect via:
+`waypipe -c lz4=9 ssh nea@10.0.20.164 firefox`
+
+* Now, the workstations firefox should pop-up on your machine
+
+* access open-webUI via
+`http://127.0.0.1:8080`
+* ..and you're good to go :)
