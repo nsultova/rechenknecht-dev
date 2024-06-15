@@ -19,8 +19,7 @@ Furthermore as sharing is caring, thus I want to be able to give access to some 
 The workstation is only accessible trough Wireguard, thus if you plan to adapt any of this keep that in mind - especially when it comes to further-down details on configuring exposure of open-webUI etc.
 
 
-
-## Main features of this installation
+## Main features and design decisions
 This playbook sets up and configures a workstation with a vanilla arch install. The setup is designed with testing in mind, around my approach to deploy step by step in the VM first and then transfer it to further testing on the workstation.
 
 Currently, there are two groups:
@@ -30,6 +29,17 @@ Currently, there are two groups:
 Things are identical for both groups, except sections that recquire GPU||a lot of disk space, those get skipped when \[vms\] is specified.
 I tend to work around with dummy-roles instead in that case.
 
+The reason I decided to go for mamba, are:
+* obviously keeping things separated
+* enabling my friends to install what they need without needing sudo or spamming the system
+* current ml-projects are often peculiar in terms of needs and dependencies, the approach with least headache seems to be to launch an environment via mamba and instapp pip + your-needed-python-version from _within and THEN install all further project-specific requirements via pip - again from within the env. Sucks but from all approaches I've worked with, the least painful and most reproducible so far 
+* currently in no mood struggling with the docker vs wireguard vs kvm circus I ran into when initially planning to do it via containers
+* also, afaik accessing the GPU via containers is non-trivial so maybe sth for the future, too much overkill for this setup 
+* might still do so in future tho
+
+
+### Structure
+
 So far the playbook has following structure:
 ```
   roles:
@@ -38,15 +48,38 @@ So far the playbook has following structure:
     - role: updates
     - role: dummy-env
     - role: open-webui
-      when: inventory_hostname in groups['machines']
+      when: inventory_host name in groups['machines']
     - role: setup-new-user
 ```
 
-##### roles/install
+##### role/install
+* Sets up and configures yay
+* Installs all packages listed in `config.yml` according to their sections
+
+##### role/setup
+* Configures some services, tools and working environment
+
+##### role/updates
+Updates can be automatically launched as as post-tasks too (see `site.yml`) but i currently prefer it this way whilst actively developing
+
+##### role/dummy-env
+Excluded by default, used this for finding out on how to make mamba run properly, kept it as conventient role for further experiments
+
+##### role/open-webUI
+Installs open-webUI in a dedicated mamba-env. 
+Given space requiements only executed when "host=machines" is set 
+#TODO: as it's technically groups the naming and way of calling is more than confusing, I hope to be able to find a better way
+#TODO add further roles for various ML-applications
+
+##### role/setup-new-user
+Sets up a new user without sudo access and baseline configuration of some tools.
+An initial password is generated via `mkpasswd --method=sha-512` and the hasehd value added in the according section in `vars/main.yml`
+Ask your friend for their pub key and add it to `files`. Refer to it from within `main.yml`
+#TODO Find a way to put this into `vars/main.yml` too
 
 
 
-
+## How to run
 ##### Prerequisites:  
 * ansible installed  on your host-system (as time of writing I am running ansible 2.17.0)
 * vanilla arch installation
@@ -54,33 +87,14 @@ So far the playbook has following structure:
 * working ssh between your host and the machine-to-be-deployed 
 * UI - I choose KDE via the installer for convenience so it's not in the roles   
 
-
-
-## Additional features
-
-## How to run
+##### Initial setup
 * `git clone https://github.com/nsultova/rechenknecht-dev.git`
 * `cd rechenknecht-confiure`
 * ensure you have your vanilla arch up and running and a working ssh connections
 * add your credential as needed in `inventory`
 * execute via `ansible-playbook -K site.yml -i inventory -e "host=machines"` 
+* after initial setup, reboot 
     
-
-``` bash
-$ sudo pacman -S ansible
-```
-
-then download the playbook and make sure you adjust the values of the global
-config in `group_vars/all` to match your system stats. Then run it.
-
-``` bash
-$ git clone --recurse-submodules -j8 https://github.com/id101010/ansible-archlinux.git
-$ cd ansible-archlinux/ansible
-$ ansible-playbook -i inventory/localhost playbook.yml [--tags $LIMIT_TO_TAG]
-```
-
-Lean back and watch the installation.
-
 ## Testing and development (local kvm machine)
 * Most things have been tested on a VM, you can set up a vanilla arch vm and run everything via
 `ansible-playbook -K site.yml -i inventory -e "host=vms"` 
@@ -88,14 +102,3 @@ Lean back and watch the installation.
 * sections that are specifically dependend on GPU/big disk requirements are skipped
 * don't forget to configure your ssh-access and add your VM's credentials in `inventory`
 
-```
-
-Now reboot the machine and start a graphical session using virtualbox. The
-default credentials are `user:vagrant pw:vagrant`.  Alternativly you can log
-into your machine using the command `vagrant ssh`.
-
-Hint: To reload the configuration into the vagrant box you can eighter reload
-(issues a graceful shutdown) the machine using `vagrant reload` or you can
-update and apply the configuration changes using `vagrant rsync && vagrant
-provision`.  This way you don't need to wait for the machine to boot when
-testing changes.
