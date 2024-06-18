@@ -61,6 +61,8 @@ other_packages: # via yay
   - google-chrome
   - gallery-dl
   - waypipe
+  - duplicity
+  - rsync
 
 services_list:
   - sshd
