@@ -9,8 +9,8 @@
     - role: setup
     #- role: updates
     #- role: dummy-env
-    - role: open-webui
-      when: inventory_hostname in groups['machines']
+    #- role: open-webui
+    #  when: inventory_hostname in groups['machines']
     #- role: setup-new-user
 
   # works like a charm, add back in when in prod, use manual role until then

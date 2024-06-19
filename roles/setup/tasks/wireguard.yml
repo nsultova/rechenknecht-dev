@@ -9,12 +9,11 @@
 
 # Note - currently due to security reasons the configuration of the provate key will happen manually
 # copy the key  to the new directory, chown it to systemd-networkd and set permissions to 0400
-
-# 
+ 
 - name: Copy .network 
   become: true
   ansible.builtin.copy:
-    src: 30-wg-rechenknecht.netdev
+    src: 30-wg-rechenknecht.network
     dest: /etc/systemd/network
     owner: root
     group: root
