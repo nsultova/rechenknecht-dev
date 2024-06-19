@@ -22,8 +22,10 @@ base_packages: #via pacman
   - wget
   - feh
   - fzf
-
-#TODO gpu_packages:
+  - waypipe
+  - wireguard-tools
+  - duplicity
+  - rsync
 
 font_packages: 
   - noto-fonts
@@ -60,13 +62,10 @@ other_packages: # via yay
   - oh-my-zsh-git
   - google-chrome
   - gallery-dl
-  - waypipe
-  - duplicity
-  - rsync
 
-services_list:
-  - sshd
-  - NetworkManager
+#services_list:
+#  - sshd
+#  - NetworkManager
 
 dev_packages:
   - visual-studio-code-bin
