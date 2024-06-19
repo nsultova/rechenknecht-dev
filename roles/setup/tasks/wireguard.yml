@@ -1,0 +1,30 @@
+- name: Create wg dictionary in /var/lib/
+  become: true
+  file:
+    path: /var/lib/wg
+    state: directory
+    mode: 0700
+    owner: systemd-network
+    group: root
+
+# Note - currently due to security reasons the configuration of the provate key will happen manually
+# copy the key  to the new directory, chown it to systemd-networkd and set permissions to 0400
+
+# 
+- name: Copy .network 
+  become: true
+  ansible.builtin.copy:
+    src: 30-wg-rechenknecht.netdev
+    dest: /etc/systemd/network
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy .netdev 
+  become: true
+  ansible.builtin.copy:
+    src: 30-wg-rechenknecht.netdev
+    dest: /etc/systemd/network
+    owner: root
+    group: root
+    mode: "0644"

@@ -2,3 +2,5 @@
 inventory
 note_to_self.md
 *.pub
+*.netdev
+30-wg-rechenknecht*
