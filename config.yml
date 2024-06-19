@@ -10,8 +10,8 @@ base_packages: #via pacman
   - dhcpcd
   - dnsmasq
   - dnsutils
-  - netctl
-  - networkmanager
+  #- netctl         # ...
+  #- networkmanager # remove these as we will manage wireguard via systemd-networkd 
   - openssh
   - whois
   - pipewire
