@@ -26,6 +26,7 @@ base_packages: #via pacman
   - wireguard-tools
   - duplicity
   - rsync
+  - htop
 
 font_packages: 
   - noto-fonts

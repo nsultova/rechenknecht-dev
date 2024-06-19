@@ -23,13 +23,24 @@
   become: true
   authorized_key:
     user: "{{ username }}"
-    key: "{{ lookup('file', 'files/id_rechenknecht.pub') }}" # in our configuration, this gets provided
+    #key: "{{ lookup('file', 'files/id_rechenknecht.pub') }}" # in our configuration, this gets provided
   
 - import_tasks: tasks/zsh.yml
 - import_tasks: tasks/mamba.yml
 - import_tasks: tasks/set_defaults.yml
   #  vars:
   #    ansible_user: "{{ username }}"
+
+- name: Copy README.md
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.copy:
+    src: README.md
+    dest: ~/README.md
+    owner: "{{ username }}" # probably need to change to var where I assign this as default
+    group: "{{ username }}"
+    mode: "0644"
+  
 
 #- name: Remove user 
 #  become: yes
