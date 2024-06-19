@@ -1,0 +1,24 @@
+- name: Stop and disable NetworkManager
+  become: true
+  block:
+    - name: Stop NetworkManager service
+      systemd:
+        name: NetworkManager
+        state: stopped
+      ignore_errors: true
+
+    - name: Disable NetworkManager service
+      systemd:
+        name: NetworkManager
+        enabled: false
+      ignore_errors: true
+
+    - name: Mask NetworkManager service
+      systemd:
+        name: NetworkManager
+        masked: true
+      ignore_errors: true
+  rescue:   #TODO debug doesn't seem to work appropriate, check
+    - name: NetworkManager is not enabled, continuing
+      debug:
+        msg: "NetworkManager is not enabled, continuing with other tasks."
