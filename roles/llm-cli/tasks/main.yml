@@ -3,20 +3,9 @@
     cmd: pipx install llm
     executable: /bin/zsh
 
-#- name: Add pipx installation directory to PATH
-#  lineinfile:
-#    path: ~/.zshrc
-#    line: export PATH=$PATH:~/.local/bin
-#    create: yes
-
-- name: Ensure llm is recognized in next session
-  ansible.builtin.shell: 
-    cmd: source ~/.zshrc
-
-- name: Install LLM plugins
-  ansible.builtin.shell:
-    cmd: llm install llm-perplexity llm-ollama
-    executable: /bin/zsh
+- name: Install LLM plugins using full path
+  ansible.builtin.command:
+    cmd: ~/.local/bin/llm install llm-perplexity
 
 - name: Configure LLM API key
   ansible.builtin.shell:
