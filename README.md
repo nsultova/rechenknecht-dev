@@ -129,3 +129,9 @@ Access open-WebUI:
 * access open-webUI via
 `http://127.0.0.1:8080`
 * ..and you're good to go :)
+
+# TODO
+# pipx and llm 
+# add plugins
+# add shell aliases for that
+# cleanup process

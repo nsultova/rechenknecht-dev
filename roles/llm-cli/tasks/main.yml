@@ -1,0 +1,42 @@
+- name: Install LLM with pipx
+  shell:
+    cmd: pipx install llm
+    executable: /bin/zsh
+
+#- name: Add pipx installation directory to PATH
+#  lineinfile:
+#    path: ~/.zshrc
+#    line: export PATH=$PATH:~/.local/bin
+#    create: yes
+
+- name: Ensure llm is recognized in next session
+  ansible.builtin.shell: 
+    cmd: source ~/.zshrc
+
+- name: Install LLM plugins
+  ansible.builtin.shell:
+    cmd: llm install llm-perplexity llm-ollama
+    executable: /bin/zsh
+
+- name: Configure LLM API key
+  ansible.builtin.shell:
+    cmd: llm keys set perplexity
+    executable: /bin/zsh
+  become: false
+  become_method: sudo
+  become_user: "{{ ansible_user }}"
+
+- name: Add ZSH aliases for LLM
+  block:
+    - name: Define aliases
+      shell:
+        cmd: |
+          echo "ask_wrapper() { llm -m sonar-small \"\$1\"; }" >> ~/.zshrc
+          echo "analyze_wrapper() { llm -m llama-3.1-70b-instruct \"\$1\"; }" >> ~/.zshrc
+          echo "alias ask='ask_wrapper'" >> ~/.zshrc
+          echo "alias analyze='analyze_wrapper'" >> ~/.zshrc
+        executable: /bin/bash
+    - name: Source .zshrc
+      shell:
+        cmd: source ~/.zshrc
+        executable: /bin/zsh

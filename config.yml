@@ -47,6 +47,7 @@ other_packages: # via yay
   - neofetch
   - btop
   - bat
+  - python-pipx
   - browserpass-firefox
   - browserpass-chromium
   - tmux
